@@ -1,0 +1,31 @@
+http:
+  routers:
+    pencatatan:
+      rule: Host(`pencatatan.localhost`) || Host(`localhost`)
+      service: pencatatan
+      entryPoints:
+        - web
+    laporan:
+      rule: Host(`laporan.localhost`)
+      service: laporan
+      entryPoints:
+        - web
+    notif:
+      rule: Host(`notif.localhost`)
+      service: notif
+      entryPoints:
+        - web
+
+  services:
+    pencatatan:
+      loadBalancer:
+        servers:
+          - url: http://pencatatan:8000
+    laporan:
+      loadBalancer:
+        servers:
+          - url: http://laporan:8000
+    notif:
+      loadBalancer:
+        servers:
+          - url: http://notif:8000
